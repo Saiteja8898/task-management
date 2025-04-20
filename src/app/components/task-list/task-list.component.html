@@ -1,11 +1,18 @@
-
-    <div class="table-container" *ngIf="tasksList?.length; else noData">
+<div class="table-container" *ngIf="tasksList?.length; else noData">
         <div class="table-header">
             <div>Id</div>
             <div>Title</div>
             <div>Description</div>
-            <div>Status</div>
-            <div>Due Date</div>
+            <div class="status-header">
+                <div>Status</div>
+                <i class="fas fa-filter" (click)="onShowStatusOverlay()"></i>
+                <div class="status-overlay" *ngIf="showStatusOverlay" (mouseleave)="onShowStatusOverlay()">
+                    <div *ngFor="let status of StatusEnum | keyvalue" (click)="onFilterByStatus(status.value)">
+                        {{ status.value }}
+                    </div>
+                </div>
+            </div>
+            <div (click)="onSort('duedate')">Due Date</div>
             <div></div>
         </div>
         <div class="table-body">
@@ -15,7 +22,7 @@
                 <div>{{ task.title }}</div>
                 <div>{{ task.description }}</div>
                 <div>{{ task.status }}</div>
-                <div>{{ task.dueDate }}</div>
+                <div>{{ task.duedate }}</div>
                 <div class="actions">
                     <span (click)="edit.emit(task)" class="action">Edit</span>
                     <span class="action" (click)="delete.emit(task)">Delete</span>

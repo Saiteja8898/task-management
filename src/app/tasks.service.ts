@@ -3,7 +3,7 @@ import { BehaviorSubject, delay, Observable, of, Subject, tap } from 'rxjs';
 import { tasks } from './const';
 import { deleteItemInLS, getItemsFromLS, setItemInLS, updateItemInLS } from './utils';
 import { Task } from './dashboard/types';
-import { ApiResponse } from './types';
+import { ApiResponse, Filters } from './types';
 
 @Injectable({
     providedIn: 'root'
@@ -62,9 +62,18 @@ export class TasksService {
         }
     }
 
-    getTasks(): Observable<ApiResponse<Task[]>> {
+    getTasks(filters: Filters | null): Observable<ApiResponse<Task[]>> {
         try {
-            const tasks = getItemsFromLS()
+            let tasks = getItemsFromLS()
+            if (filters?.sortBy === 'duedate') { // to handle other sort columns
+                tasks = tasks.sort((a: Task, b: Task) => { 
+                    const dateA = new Date(a.duedate).getTime(); 
+                    const dateB = new Date(b.duedate).getTime(); 
+                    return filters.sortOrder === 'asc' ? dateA - dateB : dateB - dateA; });
+            }
+            if (filters?.status) {
+                tasks = tasks.filter(item => item.status === filters.status)
+            }
 
             return of({
                 status: 'Success',

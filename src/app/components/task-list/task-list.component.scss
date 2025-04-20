@@ -1,48 +1,99 @@
 .table-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  background: var(--color-bg);
+  border-radius: var(--border-radius);
+  overflow: hidden;
 }
-
-.message-wrapper {
-    position: absolute;
-    top: 20px;
-    margin: auto;
-    color: red;
+.table-header,
+.row-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr 1fr 2fr 1fr;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--color-border);
+  align-items: center;
+  cursor: pointer;
 }
 .table-header {
-    display: flex;
-    gap: 8px;
-    height: 40px;
-    width: 100%;
-    align-items: center;
-}
-.table-body{
-    width: 100%;
-    flex-grow: 1;
+  font-weight: 600;
+  background: var(--color-bg-secondary);
 }
 .row-container {
+  font-weight: 400;
+  &:hover {
+    background: #f1f5f9;
+  }
+}
+.status-header {
     display: flex;
-    gap: 8px;
-    height: 40px;
-    width: 100%;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+}
+.status-overlay {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-primary);
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 12px;
+}
+.fa-filter {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
 }
 .actions {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  gap: 8px;
 }
-
 .action {
-    cursor: pointer;
-    padding: 4px;
+  background: var(--color-bg-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover {
+    background: #e2e8f0;
+  }
 }
 .loader {
-    height: 4px;
-    width: 100%;
-
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-primary-hover)
+  );
+  animation: slide 1s linear infinite;
+}
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+@media screen and (max-width: 768px) {
+  .table-header,
+  .row-container {
+    grid-template-columns: 1fr 2fr 1fr;
+    font-size: var(--font-size-base);
+    padding: 10px;
+  }
+  .row-container > div:nth-child(3),
+  .row-container > div:nth-child(5),
+  .table-header > div:nth-child(3),
+  .table-header > div:nth-child(5) {
+    display: none;
+  }
+  .actions {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
 }

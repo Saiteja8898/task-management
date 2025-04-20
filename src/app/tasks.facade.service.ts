@@ -1,6 +1,6 @@
-import { ApiResponse } from './types';
+import { ApiResponse, Filters } from './types';
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, delay, map, Observable, of, ReplaySubject, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, delay, map, Observable, of, ReplaySubject, startWith, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { tasks } from './const';
 import { calculateSummary, getItemsFromLS, setItemInLS } from './utils';
 import { Task } from './dashboard/types';
@@ -20,10 +20,11 @@ export class TasksFacadeService implements OnDestroy {
   private unsubscribe$ = new Subject<void>()
   pageLoading$ = new BehaviorSubject<boolean>(true);
   loading$ = new BehaviorSubject<boolean>(false);
-  message$ = new BehaviorSubject<string | undefined>('');
+  message$ = new BehaviorSubject<string | undefined>(''); 
+  filters$ = new BehaviorSubject<Filters | null>(null);
   summary$ = new BehaviorSubject<Record<Status,number>>({[Status.pending]: 0, [Status.inProgress]: 0, [Status.completed]: 0});
   constructor(private taskService: TasksService) {
-    this.tasks$ = this.loadTasks$.pipe(tap(_ => this.loading$.next(true)),delay(500),switchMap(_ => this.taskService.getTasks()),map((res: ApiResponse<Task[]>) => {
+    this.tasks$ = combineLatest([this.loadTasks$, this.filters$]).pipe(tap(_ => this.loading$.next(true)),delay(500),switchMap(([_, filters]) => this.taskService.getTasks(filters)),map((res: ApiResponse<Task[]>) => {
       this.loading$.next(false);
       this.pageLoading$.next(false);
       this.message$.next(res.status === 'Success' ? '' : res.error);
@@ -82,6 +83,10 @@ export class TasksFacadeService implements OnDestroy {
 
   deleteTask(task: Task) {
     this.deleteTask$.next(task)
+  }
+
+  filterBy(filters: Filters) {
+    this.filters$.next(filters)
   }
 
   ngOnDestroy(): void {

@@ -1,3 +1,4 @@
+import { SortOrder } from './../types';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TaskListComponent } from '../components/task-list/task-list.component';
@@ -5,7 +6,7 @@ import { TaskFormComponent } from '../components/task-form/task-form.component';
 import { Status } from './enum';
 import { Task } from './types';
 import { TasksFacadeService } from '../tasks.facade.service';
-import { getItemsFromLS } from '../utils';
+import { v4 as uuid } from 'uuid';
 import { combineLatest, map, Observable } from 'rxjs';
 
 @Component({
@@ -15,7 +16,7 @@ import { combineLatest, map, Observable } from 'rxjs';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-  StatusEnum = Status;
+  
   showTaskForm = false;
   taskToUpdate: Task | undefined | null;
   tasksList$: Observable<Task[] | undefined> | undefined;
@@ -43,8 +44,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onSaveTask(task: Task) {
-    console.log(task);
-    this.taskService.saveTask(task)
+    this.taskService.saveTask({...task, id: uuid().slice(0,5)})
     this.showTaskForm = false
   }
 
@@ -56,6 +56,15 @@ export class DashboardComponent implements OnInit {
 
   onDeleteTask(task: Task){
     this.taskService.deleteTask(task);
+  }
+
+  onFilterByStatus(status: Status) {
+    this.taskService.filterBy({status});
+  }
+
+  onSort(column: string) {
+    const sortOrder: SortOrder = this.taskService.filters$.value?.sortOrder === 'asc' ? 'desc' : 'asc'
+    this.taskService.filterBy({sortBy: column, sortOrder})
   }
 
   onCloseForm() {

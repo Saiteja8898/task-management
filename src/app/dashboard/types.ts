@@ -1,9 +1,9 @@
 import { Status } from "./enum";
 
 export interface Task {
-    id: number;
+    id: string;
     title: string,
     description: string,
     status: Status,
-    dueDate: string
+    duedate: string
 }

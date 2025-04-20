@@ -29,7 +29,7 @@ export class TaskFormComponent implements OnInit {
       title: [this.isEdit ? this.task?.title : '', [Validators.required, Validators.minLength(10), Validators.maxLength(20)]],
       description: [this.isEdit ? this.task?.description : '', [Validators.maxLength(50)]],
       status: [this.isEdit ? this.task?.status: Status.pending, [Validators.required]],
-      duedate: [this.isEdit ? this.task?.dueDate : '', [Validators.required]]
+      duedate: [this.isEdit ? this.task?.duedate : '', [Validators.required]]
     })
   }
 

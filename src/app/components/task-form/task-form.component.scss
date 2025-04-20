@@ -1,73 +1,113 @@
 .overlay {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: var(--bg-overlay);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
 }
-
 .task-form-container {
-    background-color: var(--white);
-    width: 320px;
-    height: 320px;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
+  background: var(--color-bg);
+  width: 100%;
+  max-width: 420px;
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
 }
 .task-form-header {
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px;
-    border-bottom: 1px solid grey;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
 }
 .task-form-title {
-    font-size: medium;
-    font-weight: 700;
+  font-size: 16px;
+  font-weight: 700;
 }
 .close-icon {
-    font-size: medium;
-    font-weight: 700;
-    color: grey;
-    padding: 4px;
-    border-radius: 4px;
-    cursor: pointer;
-    &:hover {
-        background-color: var(--bg-grey);
-    }
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 50%;
+  &:hover {
+    background: var(--color-border);
+  }
 }
 .form-wrapper {
-    overflow-y: scroll;
+  padding: 20px;
+  max-height: 360px;
+  overflow-y: auto;
 }
 .task-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    justify-content: center;
-    padding: 10px 24px;
-    flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 .task-form-label {
-    font-size: small;
-    font-weight: 500;
-    width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
 }
 .task-form-input {
-    height: 24px;
-    width: 100%;
-    border: 1px solid black;
-    border-radius: 4px;
-    margin: 4px 0;
-    :focus-visible {
-        outline: none;
-    }
+  margin-top: 6px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 14px;
+  &:focus {
+    border-color: var(--color-primary);
+    outline: none;
+  }
 }
 .buttons-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--color-bg-secondary);
+}
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  &:disabled {
+    background: #d1d5db;
+    color: var(--color-grey);
+    cursor: not-allowed;
+  }
+  &:not(:disabled) {
+    background: var(--color-primary);
+    color: #fff;
+  }
+  &:not(:disabled):hover {
+    background: var(--color-primary-hover);
+  }
+}
+@media screen and (max-width: 480px) {
+  .task-form-container {
+    max-width: 100%;
+  }
+  .task-form-header,
+  .form-wrapper,
+  .buttons-container {
+    padding: 12px;
+  }
+  .task-form-input {
+    font-size: 13px;
+  }
+  .task-form-title {
+    font-size: 14px;
+  }
+  button {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
 }

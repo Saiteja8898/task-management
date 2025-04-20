@@ -7,7 +7,7 @@ import { Status } from "./dashboard/enum";
 export function setItemInLS(task: Task | Task[]) {
     if(typeof window !== 'undefined') {
         const savedTasks = getItemsFromLS() ?? [];
-        const allTasks = Array.isArray(task) ? [...savedTasks, ...task] : [...savedTasks, task]
+        const allTasks = Array.isArray(task) ? [...task,...savedTasks ] : [task, ...savedTasks ]
         window.localStorage.setItem(LS_KEY,JSON.stringify(allTasks))
     } else {
         throw new Error('Task Creation Failed')
@@ -37,7 +37,7 @@ export function deleteItemInLS(task: Task) {
     }
 }
 
-export function getItemsFromLS() {
+export function getItemsFromLS(): Task[] {
     if(typeof window !=='undefined') {
         return JSON.parse(window.localStorage.getItem(LS_KEY) || '[]')
     }
