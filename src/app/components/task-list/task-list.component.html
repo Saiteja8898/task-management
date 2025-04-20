@@ -1,0 +1,28 @@
+
+    <div class="table-container" *ngIf="tasksList?.length; else noData">
+        <div class="table-header">
+            <div>Id</div>
+            <div>Title</div>
+            <div>Description</div>
+            <div>Status</div>
+            <div>Due Date</div>
+            <div></div>
+        </div>
+        <div class="table-body">
+            <div class="loader" *ngIf="loading"></div>
+            <div *ngFor="let task of tasksList" class="row-container">
+                <div>{{ task.id }}</div>
+                <div>{{ task.title }}</div>
+                <div>{{ task.description }}</div>
+                <div>{{ task.status }}</div>
+                <div>{{ task.dueDate }}</div>
+                <div class="actions">
+                    <span (click)="edit.emit(task)" class="action">Edit</span>
+                    <span class="action" (click)="delete.emit(task)">Delete</span>
+                </div>
+            </div>
+        </div>
+    </div>
+<ng-template #noData>
+    No Tasks created yet. Create one using the create button.
+</ng-template>

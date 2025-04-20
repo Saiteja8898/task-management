@@ -12,20 +12,6 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
 ## Building
 
 To build the project run:
@@ -44,16 +30,29 @@ To execute unit tests with the [Karma](https://karma-runner.github.io) test runn
 ng test
 ```
 
-## Running end-to-end tests
 
-For end-to-end (e2e) testing, run:
+# task-management
 
-```bash
-ng e2e
-```
+Description: Build a simple Task Management Dashboard where users can view, add, edit, and delete tasks.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Requirements:
+- Features:
+    - Display a list of tasks with properties: title, description, status (Pending, In Progress, Completed), and dueDate.
+    - Allow users to:
+    - Add new tasks with validation (e.g., title and dueDate are mandatory).
+    - Edit task details.
+    - Delete tasks.
+    - Filter tasks by status.
+    - Sort tasks by dueDate.
+    - Provide a summary at the top of the dashboard showing the count of tasks in each status.
 
-## Additional Resources
+- Design:
+    - Use a responsive layout (grid or list view) with a modern UI.
+    - Include a modal or a form component for adding and editing tasks.
+- Tech-Specific Requirements:
+    - Use state management (e.g., Context API, Redux, or RxJS for Angular).
+- Implement reusable components (e.g., a TaskCard and TaskForm).
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Additional Challenges:
+-   Add client-side routing: Navigate between “All Tasks” and “Completed Tasks” views.
+-   Persist tasks using local storage or a mock API.

@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+    --pending: grey;
+    --inProgress: orange;
+    --completed: green;
+    --bg-overlay: rgba(211,211,211, 0.2);
+    --white: white;
+    --bg-grey: rgba(128,128,128,0.2);
+}
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+* {
+    box-sizing: border-box;
+}

@@ -1,0 +1,48 @@
+.table-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.message-wrapper {
+    position: absolute;
+    top: 20px;
+    margin: auto;
+    color: red;
+}
+.table-header {
+    display: flex;
+    gap: 8px;
+    height: 40px;
+    width: 100%;
+    align-items: center;
+}
+.table-body{
+    width: 100%;
+    flex-grow: 1;
+}
+.row-container {
+    display: flex;
+    gap: 8px;
+    height: 40px;
+    width: 100%;
+}
+.actions {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.action {
+    cursor: pointer;
+    padding: 4px;
+}
+.loader {
+    height: 4px;
+    width: 100%;
+
+}

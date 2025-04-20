@@ -1,0 +1,39 @@
+<section class="overlay">
+    <div class="task-form-container">
+        <div class="task-form-header">
+            <div class="task-form-title">{{isEdit ? 'Edit' : 'Create'}} Task</div>
+            <div class="close-icon" (click)="close.emit()">x</div>
+        </div>
+        <div class="scroll-container form-wrapper ">
+            <form class="task-form " [formGroup]="form">
+                <label class="task-form-label" for="task-title">
+                    Title
+                    <input class="task-form-input" type="text" id="task-title" name="title" formControlName="title" />
+                    <div *ngIf="getErrors('title')"><div *ngFor="let error of getErrors('title') | keyvalue">{{error.key === 'required' ? 'Title is required' : 'Length must be between 10-20 chars'}}</div></div>
+                </label>
+                <label class="task-form-label" for="task-description">
+                    Description
+                    <input class="task-form-input" type="text" id="task-description" name="description" formControlName="description"/>
+                    <div *ngIf="getErrors('description')">Maximum length is 50 chars</div>
+                </label>
+                <label class="task-form-label" for="task-status">
+                    Status
+                    <select class="task-form-input" id="task-status" name="status" formControlName="status">
+                        <option *ngFor="let option of statusList" [value]="option">{{option}}</option>
+                    </select>
+                    <div *ngIf="getErrors('status')">Status is requried</div>
+                </label>
+                <label class="task-form-label" for="task-due-date">
+                    Due Date
+                    <input class="task-form-input" type="date" id="task-due-date" name="duedate" formControlName="duedate"/>
+                    <div *ngIf="getErrors('duedate')">Due Date is required</div>
+                </label>
+            </form>
+        </div>
+
+        <div class="buttons-container">
+            <button (click)="form.reset()">Clear</button>
+            <button [disabled]="!form.valid" (click)="onSubmit()">Save</button>
+        </div>
+    </div>
+</section>
