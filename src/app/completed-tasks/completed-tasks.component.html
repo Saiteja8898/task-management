@@ -1,0 +1,38 @@
+<section *ngIf="{loading: loading$ | async, pageLoading: pageLoading$ | async, message: message$ | async, tasksList: tasksList$ | async, summary: summary$ | async } as streams">
+    <ng-container *ngIf="streams?.pageLoading; else showContent">
+        <div class="page-loader">Loading....</div>
+    </ng-container>
+    <ng-template #showContent>
+        <div *ngIf="streams?.message" class="message-wrapper" [ngClass]="
+        (streams?.message ?? '').includes('Success')
+          ? 'success-message'
+          : 'error-message'
+      ">
+            {{ streams?.message }}
+        </div>
+        <div class="dashboard-container">
+            
+            <div class="summary-wrapper">
+                <ng-container *ngIf="streams?.summary">
+                    <ng-container *ngIf="!!streams?.loading; else showSummary">
+                        Loading...
+                    </ng-container>
+                    <ng-template #showSummary>
+                        <div class="summary" *ngFor="let item of streams?.summary | keyvalue">
+                            <div>{{ item.key }}</div>
+                            <div>{{ item.value }}</div>
+                        </div>
+                    </ng-template>
+
+                    <button class="create-button" (click)="onCreateTask()">
+                        Create Task
+                    </button>
+                </ng-container>
+            </div>
+            <app-task-list [tasksList]="streams?.tasksList" [loading]="!!streams?.loading" (sort)="onSort($event)"  (filterByStatus)="onFilterByStatus($event)"
+                (edit)="onEditTask($event)" (delete)="onDeleteTask($event)"></app-task-list>
+        </div>
+        <app-task-form *ngIf="showTaskForm" [isEdit]="!!taskToUpdate" [task]="taskToUpdate" (save)="onSaveTask($event)"
+            (update)="onUpdateTask($event)" (close)="onCloseForm()"></app-task-form>
+    </ng-template>
+</section>

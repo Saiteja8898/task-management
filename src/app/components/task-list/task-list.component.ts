@@ -15,6 +15,7 @@ export class TaskListComponent {
   @Input() tasksList: Task[] | null | undefined = [];
   @Input() loading = false;
   @Input() message = ''
+  @Input() allowStatusFilter= false;
   @Output() edit = new EventEmitter<Task>();
   @Output() delete = new EventEmitter<Task>();
   @Output() filterByStatus = new EventEmitter<Status>();

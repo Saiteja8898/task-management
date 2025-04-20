@@ -5,7 +5,7 @@
             <div>Description</div>
             <div class="status-header">
                 <div>Status</div>
-                <i class="fas fa-filter" (click)="onShowStatusOverlay()"></i>
+                <i class="fas fa-filter" *ngIf="allowStatusFilter" (click)="onShowStatusOverlay()"></i>
                 <div class="status-overlay" *ngIf="showStatusOverlay" (mouseleave)="onShowStatusOverlay()">
                     <div *ngFor="let status of StatusEnum | keyvalue" (click)="onFilterByStatus(status.value)">
                         {{ status.value }}
