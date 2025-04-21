@@ -2,7 +2,8 @@
   width: 100%;
   background: var(--color-bg);
   border-radius: var(--border-radius);
-  overflow: hidden;
+  overflow: scroll;
+  height: calc(100vh - 285px);
 }
 .table-header,
 .row-container {
@@ -12,6 +13,7 @@
   border-bottom: 1px solid var(--color-border);
   align-items: center;
   cursor: pointer;
+  gap: 20px;
 }
 .table-header {
   font-weight: 600;
@@ -82,15 +84,9 @@
 @media screen and (max-width: 768px) {
   .table-header,
   .row-container {
-    grid-template-columns: 1fr 2fr 1fr;
     font-size: var(--font-size-base);
     padding: 10px;
-  }
-  .row-container > div:nth-child(3),
-  .row-container > div:nth-child(5),
-  .table-header > div:nth-child(3),
-  .table-header > div:nth-child(5) {
-    display: none;
+    min-width: 800px;
   }
   .actions {
     flex-wrap: wrap;
