@@ -10,7 +10,7 @@ import { clearTasksFromLS, setItemInLS } from './utils';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  title = 'spry-task-management';
+  title = 'task-management';
   constructor() {}
   ngOnInit(): void {
     setItemInLS(tasks)
